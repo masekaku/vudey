@@ -1,0 +1,17 @@
+[
+  {
+    "title": "Video Pertama",
+    "thumbnail": "https://picsum.photos/seed/vid1/800/450",
+    "url": "https://www.youtube.com/watch?v=dQw4w9WgXcQ"
+  },
+  {
+    "title": "Video Kedua",
+    "thumbnail": "https://picsum.photos/seed/vid2/800/450",
+    "url": "https://www.youtube.com/watch?v=abcd1234"
+  },
+  {
+    "title": "Video Ketiga",
+    "thumbnail": "https://picsum.photos/seed/vid3/800/450",
+    "url": "https://www.youtube.com/watch?v=wxyz5678"
+  }
+]
