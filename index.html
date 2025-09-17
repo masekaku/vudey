@@ -47,7 +47,7 @@
     </section>
 
     <section class="video-section">
-      <div id="grid" class="grid"></div>
+      <div id="grid" class="grid"></div> 
     </section>
   </main>
 
@@ -55,34 +55,80 @@
     <p>© 2025 Koleksi Videy. Dibuat dengan ❤.</p>
   </footer>
 
-  <script>
-    async function loadVideos() {
-      try {
+  <div id="smartPopup">Konten akan terbuka...</div>
+
+ <script>
+const SMARTLINK_URL = 'https://discreetisabella.com/wnxneai5xf?key=f234c1281833908a12385bbbc9881cf7'; // Ganti dengan Smartlink-mu
+const smartPopup = document.getElementById('smartPopup');
+
+// Fungsi tampilkan pop-up mini
+function showPopup(duration = 1500) {
+    smartPopup.classList.add('show');
+    setTimeout(() => smartPopup.classList.remove('show'), duration);
+}
+
+// Pasang Smartlink trigger ke semua link video
+function attachSmartlink() {
+    document.querySelectorAll('.video-link').forEach(link => {
+        link.addEventListener('click', function(e) {
+            e.preventDefault(); // cegah langsung ke video
+            const videoURL = this.href;
+
+            // Tampilkan pop-up mini
+            showPopup();
+
+            // Delay 600ms agar pop-up terlihat
+            setTimeout(() => {
+                // Frequency capping: 1x per session
+                if (!sessionStorage.getItem('smartlinkShown')) {
+                    window.open(SMARTLINK_URL, '_blank');
+                    sessionStorage.setItem('smartlinkShown', 'true');
+                }
+
+                // Buka video asli di tab baru
+                window.open(videoURL, '_blank');
+            }, 600);
+        });
+    });
+}
+
+// Load video dari JSON
+async function loadVideos() {
+    try {
         const res = await fetch("data/videos.json");
         const videoData = await res.json();
         const grid = document.getElementById("grid");
-
         grid.innerHTML = "";
-        videoData.forEach(v => {
-          const el = document.createElement("div");
-          el.className = "card";
-          el.innerHTML = `
-            <div class="thumb-wrapper">
-              <img class="thumb" src="${v.thumbnail}" alt="${v.title}" />
-            </div>
-            <div class="meta">
-              <h3>${v.title}</h3>
-              <a href="${v.url}" target="_blank">${v.url}</a>
-            </div>
-          `;
-          grid.appendChild(el);
-        });
-      } catch (err) {
-        console.error("Gagal memuat video:", err);
-      }
-    }
 
-    loadVideos();
-  </script>
+        videoData.forEach(v => {
+            const el = document.createElement("div");
+            el.className = "card";
+            el.innerHTML = `
+                <div class="thumb-wrapper">
+                    <img class="thumb" src="${v.thumbnail}" alt="${v.title}" />
+                </div>
+                <div class="meta">
+                    <h3>${v.title}</h3>
+                    <a href="${v.url}" target="_blank" class="video-link">${v.title}</a>
+                </div>
+            `;
+            grid.appendChild(el);
+        });
+
+        // Pasang Smartlink trigger setelah semua link dirender
+        attachSmartlink();
+
+    } catch (err) {
+        console.error("Gagal memuat video:", err);
+    }
+}
+
+loadVideos();
+
+// Bersihkan cache session saat user meninggalkan halaman
+window.addEventListener('beforeunload', function() {
+    sessionStorage.removeItem('smartlinkShown');
+});
+</script>
 </body>
 </html>
