@@ -62,38 +62,31 @@
 const SMARTLINK_URL = 'https://morallyfitful.com/wnxneai5xf?key=f234c1281833908a12385bbbc9881cf7'; // Ganti dengan Smartlink-mu
 const smartPopup = document.getElementById('smartPopup');
 
-// Fungsi tampilkan pop-up mini
 function showPopup(duration = 1500) {
     smartPopup.classList.add('show');
     setTimeout(() => smartPopup.classList.remove('show'), duration);
 }
 
-// Pasang Smartlink trigger ke semua link video
 function attachSmartlink() {
     document.querySelectorAll('.video-link').forEach(link => {
         link.addEventListener('click', function(e) {
             e.preventDefault(); // cegah langsung ke video
             const videoURL = this.href;
 
-            // Tampilkan pop-up mini
             showPopup();
 
-            // Delay 600ms agar pop-up terlihat
             setTimeout(() => {
-                // Frequency capping: 1x per session
                 if (!sessionStorage.getItem('smartlinkShown')) {
                     window.open(SMARTLINK_URL, '_blank');
                     sessionStorage.setItem('smartlinkShown', 'true');
                 }
 
-                // Buka video asli di tab baru
                 window.open(videoURL, '_blank');
             }, 600);
         });
     });
 }
 
-// Load video dari JSON
 async function loadVideos() {
     try {
         const res = await fetch("data/videos.json");
@@ -116,7 +109,6 @@ async function loadVideos() {
             grid.appendChild(el);
         });
 
-        // Pasang Smartlink trigger setelah semua link dirender
         attachSmartlink();
 
     } catch (err) {
@@ -126,10 +118,30 @@ async function loadVideos() {
 
 loadVideos();
 
-// Bersihkan cache session saat user meninggalkan halaman
 window.addEventListener('beforeunload', function() {
     sessionStorage.removeItem('smartlinkShown');
 });
 </script>
+
+<script type="text/javascript">
+  var _Hasync = _Hasync || [];
+  _Hasync.push(['Histats.start', '1,4984384,4,5,172,25,00011111']); // Ganti ID dengan milikmu
+  _Hasync.push(['Histats.fasi', '1']);
+  _Hasync.push(['Histats.track_hits', '']);
+  (function() {
+    var hs = document.createElement('script');
+    hs.type = 'text/javascript';
+    hs.async = true;
+    hs.src = '//s10.histats.com/js15_as.js';
+    var el = document.getElementsByTagName('head')[0] || document.getElementsByTagName('body')[0];
+    el.appendChild(hs);
+  })();
+</script>
+
+<noscript>
+  <a href="https://www.histats.com" target="_blank">
+    <img src="//sstatic1.histats.com/0.gif?0000000&101" alt="Histats Counter" border="0">
+  </a>
+</noscript>
 </body>
 </html>
