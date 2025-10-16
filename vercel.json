@@ -1,5 +1,6 @@
 {
   "version": 2,
+  "buildCommand": "node generate-sitemap.js",
   "builds": [
     {
       "src": "generate-sitemap.js",
@@ -16,11 +17,16 @@
     {
       "src": "artifacts.json",
       "use": "@vercel/static"
+    },
+    {
+      "src": "sitemap.xml",
+      "use": "@vercel/static"
+    },
+    {
+      "src": "sitemap.html",
+      "use": "@vercel/static"
     }
   ],
-  "hooks": {
-    "build": "npm run build"
-  },
   "routes": [
     { "src": "/v/BVAPZ7", "dest": "/" },
     { "src": "/v/QJTJPC", "dest": "/" },
