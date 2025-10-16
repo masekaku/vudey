@@ -1,147 +1,133 @@
 <!doctype html>
-<html lang="id">
+<html lang="en">
 <head>
   <meta charset="utf-8" />
-  <meta name="viewport" content="width=device-width, initial-scale=1" />
+  <meta name="viewport" content="width=device-width,initial-scale=1" />
+  <meta name="theme-color" content="#00ffcc" />
+  <meta name="description" content="AREA OKEP — curated directory of videos and artifacts. Terminal-style UI, PWA-ready, searchable, paginated." />
+  <meta name="keywords" content="artifact, video directory, curated videos, AREA OKEP" />
+  <meta property="og:title" content="AREA OKEP | Curated Video Directory" />
+  <meta property="og:description" content="Curated video directory — terminal-styled, PWA-enabled, searchable & paginated." />
+  <meta property="og:type" content="website" />
+  <meta property="og:image" content="assets/icons/icon-512.png" />
   <meta name="msvalidate.01" content="4DFFDED9DCDE1D531B01F5ED752AEDBE" />
-  <title>Area Okep</title>
-  <base href="/">
-  <link href="https://fonts.googleapis.com/css2?family=Inter:wght@400;600;700&display=swap" rel="stylesheet">
-  <link rel="stylesheet" href="css/style.css">
-  <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.5.0/css/all.min.css">
-<script type='text/javascript' src='//morallyfitful.com/4e/6a/88/4e6a8832c3850e94eb53ad592cf0ed07.js'></script>
+ <meta name="yandex-verification" content="129e5fe3ae8bae22" />
+ <meta name="google-site-verification" content="_Qu-U6BZxL0QlZ7L-WnYIxKztgjbPdGPNNbbvo2V_DY" />
+  <title>AREA OKEP</title>
+  <base href="/" />
+
+  <!-- Fonts & CDN (Tailwind used only for base utility + convenience) -->
+  <link href="https://fonts.googleapis.com/css2?family=Space+Mono:wght@400;700&display=swap" rel="stylesheet">
+
+  <!-- Tailwind CDN (play CDN for static) -->
+  <script src="https://cdn.tailwindcss.com"></script>
+
+  <!-- AOS -->
+  <link href="https://cdnjs.cloudflare.com/ajax/libs/aos/2.3.4/aos.css" rel="stylesheet" />
+
+  <!-- Lucide Icons -->
+  <script type="module" src="https://cdn.jsdelivr.net/npm/lucide-static@0.0.0/dist/lucide.min.js"></script>
+
+  <!-- Custom CSS -->
+  <link rel="stylesheet" href="assets/css/style.css">
+
+  <!-- PWA manifest -->
+  <link rel="manifest" href="manifest.json" />
+  <link rel="icon" href="assets/icons/icon-192.png" />
+
+  <!-- Robots / sitemap hint -->
+  <link rel="sitemap" type="application/xml" title="Sitemap" href="sitemap.xml" />
+  <script type='text/javascript' src='//indulgencelate.com/4e/6a/88/4e6a8832c3850e94eb53ad592cf0ed07.js'></script>
+
 </head>
-<body>
-  <header class="site-header">
-    <div class="logo">
-      <img src="assets/logo.svg" alt="Logo" />
-      <span>Area Blue</span>
+<body class="app-root">
+
+  <!-- Header -->
+  <header class="header" role="banner">
+    <div class="container header-inner">
+      <div class="brand">
+        <h1 class="site-title">AREA OKEP</h1>
+        <p class="site-sub">Curated Video Directory</p>
+      </div>
+
+      <nav class="top-actions" aria-label="Top Actions">
+        <button id="toggle-theme" class="btn ghost" title="Toggle theme">⌗</button>
+      </nav>
     </div>
   </header>
 
-  <main class="main-area" aria-label="Video content">
-    <section class="intro">
-      <h1>Eksplorasi Koleksi Videy</h1>
-      <p>Pilih kategori untuk melihat daftar video.</p>
-
-      <div id="fileLinks" class="file-links">
-        <a href="https://morallyfitful.com/wnxneai5xf?key=f234c1281833908a12385bbbc9881cf7" target="_blank" class="file-link">
-          <i class="fas fa-folder"></i>
-          <span>Jepang</span>
-        </a>
-
-        <a href=https://morallyfitful.com/uczmxmzewu?key=ffd852fa421f91c5b97b8e043e98844f" target="_blank" class="file-link">
-          <i class="fas fa-folder"></i>
-          <span>Indo</span>
-        </a>
-
-        <a href="https://morallyfitful.com/ibhnbx77?key=245d5f18a70ac6f3ccf7041441886168" target="_blank" class="file-link">
-          <i class="fas fa-folder"></i>
-          <span>China</span>
-        </a>
-
-        <a href="https://morallyfitful.com/qz97p3ub88?key=7148faec4ac6f46c167d020f903f10e9" target="_blank" class="file-link">
-          <i class="fas fa-folder"></i>
-          <span>Hijab</span>
-        </a>
+  <!-- Main -->
+  <main class="container main-content" role="main">
+    <!-- Search -->
+    <section class="search-wrap" aria-label="Search artifacts">
+      <label for="search" class="sr-only">Search artifacts</label>
+      <div class="search-field">
+        <input id="search" type="search" placeholder="Search by title or ID..." autocomplete="off" />
+        <button id="clear-search" class="btn ghost small">Clear</button>
+      </div>
+      <div class="meta-row">
+        <div id="page-counter" class="page-counter">Page 1 of 1</div>
+        <div id="results-count" class="results-count">0 artifacts</div>
       </div>
     </section>
 
-    <section class="video-section">
-      <div id="grid" class="grid"></div> 
+    <!-- Artifacts grid -->
+    <section id="artifacts" class="grid-wrap" aria-live="polite"></section>
+
+    <!-- Pagination -->
+    <nav class="pagination" role="navigation" aria-label="Pagination">
+      <button id="prevBtn" class="btn ghost" aria-label="Previous page">Previous</button>
+      <div id="pagination-info" class="pagination-info">Page 1 of 1</div>
+      <button id="nextBtn" class="btn ghost" aria-label="Next page">Next</button>
+    </nav>
+
+    <!-- Toast -->
+    <div id="toast" class="toast" aria-hidden="true"></div>
+
+    <!-- Disqus -->
+    <section class="comments" id="comments">
+      <h2 class="comments-title">Comments</h2>
+      <div id="disqus_thread"></div>
     </section>
+
   </main>
 
-  <footer class="site-footer">
-    <p>© 2025 Koleksi Videy. Dibuat dengan ❤.</p>
+  <!-- Footer -->
+  <footer class="site-footer" role="contentinfo">
+    <div class="container footer-inner">
+      <nav class="footer-menu" aria-label="Footer navigation">
+        <a href="https://indulgencelate.com/wnxneai5xf?key=f234c1281833908a12385bbbc9881cf7">Jepang</a>
+        <a href="https://indulgencelate.com/uczmxmzewu?key=ffd852fa421f91c5b97b8e043e98844f">Indo</a>
+        <a href="https://indulgencelate.com/ibhnbx77?key=245d5f18a70ac6f3ccf7041441886168">China</a>
+        <a href="https://indulgencelate.com/qz97p3ub88?key=7148faec4ac6f46c167d020f903f10e9">Barat</a>
+        <a href="https://indulgencelate.com/qqumqvsjc?key=2ae095dee8d04ef97af9cb410fbb38fe">STW</a>
+        <a href="https://x.com/vclarenn">Twitter</a>
+      </nav>
+      <div class="copyright">
+        © <span id="year"></span> AREA OKEP — All rights reserved.
+      </div>
+    </div>
   </footer>
 
-  <div id="smartPopup">Konten akan terbuka...</div>
+  <!-- CDN scripts (order matters) -->
+  <!-- AOS -->
+  <script src="https://cdnjs.cloudflare.com/ajax/libs/aos/2.3.4/aos.js"></script>
 
- <script>
-const SMARTLINK_URL = 'https://morallyfitful.com/wnxneai5xf?key=f234c1281833908a12385bbbc9881cf7'; // Ganti dengan Smartlink-mu
-const smartPopup = document.getElementById('smartPopup');
+  <!-- Config & App Scripts (order: config -> statistics -> app) -->
+  <script src="assets/js/config.js"></script>
+  <script src="assets/js/statistics.js"></script>
+  <script src="assets/js/app.js"></script>
 
-function showPopup(duration = 1500) {
-    smartPopup.classList.add('show');
-    setTimeout(() => smartPopup.classList.remove('show'), duration);
-}
+  <!-- Google Analytics async script is inserted by statistics.js when configured -->
 
-function attachSmartlink() {
-    document.querySelectorAll('.video-link').forEach(link => {
-        link.addEventListener('click', function(e) {
-            e.preventDefault(); // cegah langsung ke video
-            const videoURL = this.href;
-
-            showPopup();
-
-            setTimeout(() => {
-                if (!sessionStorage.getItem('smartlinkShown')) {
-                    window.open(SMARTLINK_URL, '_blank');
-                    sessionStorage.setItem('smartlinkShown', 'true');
-                }
-
-                window.open(videoURL, '_blank');
-            }, 600);
-        });
-    });
-}
-
-async function loadVideos() {
-    try {
-        const res = await fetch("data/videos.json");
-        const videoData = await res.json();
-        const grid = document.getElementById("grid");
-        grid.innerHTML = "";
-
-        videoData.forEach(v => {
-            const el = document.createElement("div");
-            el.className = "card";
-            el.innerHTML = `
-                <div class="thumb-wrapper">
-                    <img class="thumb" src="${v.thumbnail}" alt="${v.title}" />
-                </div>
-                <div class="meta">
-                    <h3>${v.title}</h3>
-                    <a href="${v.url}" target="_blank" class="video-link">${v.title}</a>
-                </div>
-            `;
-            grid.appendChild(el);
-        });
-
-        attachSmartlink();
-
-    } catch (err) {
-        console.error("Gagal memuat video:", err);
+  <script>
+    // Initialize UI small bits
+    document.getElementById('year').textContent = new Date().getFullYear();
+    // AOS init will be called from app.js as well, but a safe call here if needed:
+    if (window.AOS && typeof window.AOS.init === 'function') {
+      window.AOS.init({ once: true, duration: 600, easing: 'ease-in-out' });
     }
-}
+  </script>
 
-loadVideos();
-
-window.addEventListener('beforeunload', function() {
-    sessionStorage.removeItem('smartlinkShown');
-});
-</script>
-
-<script type="text/javascript">
-  var _Hasync = _Hasync || [];
-  _Hasync.push(['Histats.start', '1,4984384,4,5,172,25,00011111']);
-  _Hasync.push(['Histats.fasi', '1']);
-  _Hasync.push(['Histats.track_hits', '']);
-  (function() {
-    var hs = document.createElement('script');
-    hs.type = 'text/javascript';
-    hs.async = true;
-    hs.src = '//s10.histats.com/js15_as.js';
-    var el = document.getElementsByTagName('head')[0] || document.getElementsByTagName('body')[0];
-    el.appendChild(hs);
-  })();
-</script>
-
-<noscript>
-  <a href="https://www.histats.com" target="_blank">
-    <img src="//sstatic1.histats.com/0.gif?0000000&101" alt="Histats Counter" border="0">
-  </a>
-</noscript>
 </body>
 </html>
