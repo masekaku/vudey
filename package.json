@@ -1,0 +1,9 @@
+{
+  "name": "videyweb",
+  "version": "1.0.0",
+  "description": "Static site for Videyweb with auto sitemap generation",
+  "scripts": {
+    "build": "node generate-sitemap.js"
+  },
+  "license": "MIT"
+}
