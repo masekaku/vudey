@@ -1,23 +1,46 @@
 {
-  "rewrites": [
-    { "source": "/v/BVAPZ7", "destination": "/" },
-    { "source": "/v/QJTJPC", "destination": "/" },
-    { "source": "/v/L3qqOI", "destination": "/" },
-    { "source": "/v/Zjan03", "destination": "/" },
-    { "source": "/v/efEgTO", "destination": "/" },
-    { "source": "/v/uLTZa7", "destination": "/" },
-    { "source": "/v/sitK2b", "destination": "/" },
-    { "source": "/v/oEAc5V", "destination": "/" },
-    { "source": "/v/X5yNjc", "destination": "/" },
-    { "source": "/v/7IcGFJ", "destination": "/" },
-    { "source": "/v/5BetAV", "destination": "/" },
-    { "source": "/v/ubLmoX", "destination": "/" },
-    { "source": "/v/7FEgoC", "destination": "/" },
-    { "source": "/v/tr7kIp", "destination": "/" },
-    { "source": "/v/oraQGs", "destination": "/" },
-    { "source": "/v/rtoYZR", "destination": "/" },
-    { "source": "/v/0HB746", "destination": "/" },
-    { "source": "/v/Giom09", "destination": "/" },
-    { "source": "/v/wP4wZU", "destination": "/" }
+  "version": 2,
+  "builds": [
+    {
+      "src": "generate-sitemap.js",
+      "use": "@vercel/node"
+    },
+    {
+      "src": "*.html",
+      "use": "@vercel/static"
+    },
+    {
+      "src": "assets/**/*",
+      "use": "@vercel/static"
+    },
+    {
+      "src": "artifacts.json",
+      "use": "@vercel/static"
+    }
+  ],
+  "hooks": {
+    "build": "npm run build"
+  },
+  "routes": [
+    { "src": "/v/BVAPZ7", "dest": "/" },
+    { "src": "/v/QJTJPC", "dest": "/" },
+    { "src": "/v/L3qqOI", "dest": "/" },
+    { "src": "/v/Zjan03", "dest": "/" },
+    { "src": "/v/efEgTO", "dest": "/" },
+    { "src": "/v/uLTZa7", "dest": "/" },
+    { "src": "/v/sitK2b", "dest": "/" },
+    { "src": "/v/oEAc5V", "dest": "/" },
+    { "src": "/v/X5yNjc", "dest": "/" },
+    { "src": "/v/7IcGFJ", "dest": "/" },
+    { "src": "/v/5BetAV", "dest": "/" },
+    { "src": "/v/ubLmoX", "dest": "/" },
+    { "src": "/v/7FEgoC", "dest": "/" },
+    { "src": "/v/tr7kIp", "dest": "/" },
+    { "src": "/v/oraQGs", "dest": "/" },
+    { "src": "/v/rtoYZR", "dest": "/" },
+    { "src": "/v/0HB746", "dest": "/" },
+    { "src": "/v/Giom09", "dest": "/" },
+    { "src": "/v/wP4wZU", "dest": "/" },
+    { "src": "/(.*)", "dest": "/$1" }
   ]
 }
